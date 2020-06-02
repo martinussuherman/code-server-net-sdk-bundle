@@ -9,11 +9,11 @@ EXISTING_GID=$( getent group $EGROUP | cut -f3 -d ':' )
 if [ ! -z $EXISTING_GID ]; then
    if [ $EXISTING_GID != $EGID ]; then
       # change id of the existing group
-      groupmod -g $EGID $EGROUP
+      groupmod -gid $EGID $EGROUP
    fi
 else
    # create new group with id = EGID
-   addgroup -g $EGID $EGROUP
+   addgroup -gid $EGID $EGROUP
 fi
 
 # does a user with name = EUSER already exist ?
@@ -23,20 +23,20 @@ if [ ! -z $EXISTING_UID ]; then
    if [ $EXISTING_UID != $EUID ]; then
       if [ ! -z $EHOME ]; then
          # change login, home, shell (nologin) and primary group of the existing user
-         usermod -u $EUID -d $EHOME -s /sbin/nologin -g $EGROUP $EUSER
+         usermod -u $EUID -d $EHOME -shell /sbin/nologin -group $EGROUP $EUSER
       else
          # change login, shell (nologin) and primary group of the existing user
-         usermod -u $EUID -s /sbin/nologin -g $EGROUP $EUSER
+         usermod -u $EUID -shell /sbin/nologin -group $EGROUP $EUSER
       fi
    fi
 else
    if [ ! -z $EHOME ]; then
       # create new user with id = EUID, group = EGROUP and home directory = EHOME,
       # with nologin shell
-      adduser -s /sbin/nologin -u $EUID -G $EGROUP -h $EHOME -D $EUSER
+      adduser -shell /sbin/nologin -u $EUID -G $EGROUP -h $EHOME -D $EUSER
    else
       # create new user with id = EUID and group = EGROUP, with nologin shell
-      adduser -s /sbin/nologin -u $EUID -G $EGROUP -D $EUSER
+      adduser -shell /sbin/nologin -u $EUID -G $EGROUP -D $EUSER
    fi
 fi
 
