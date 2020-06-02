@@ -23,20 +23,20 @@ if [ ! -z $EXISTING_UID ]; then
    if [ $EXISTING_UID != $EUID ]; then
       if [ ! -z $EHOME ]; then
          # change login, home, shell (nologin) and primary group of the existing user
-         usermod -u $EUID -d $EHOME -shell /sbin/nologin -group $EGROUP $EUSER
+         usermod -u $EUID -d $EHOME -s /sbin/nologin -g $EGID $EUSER
       else
          # change login, shell (nologin) and primary group of the existing user
-         usermod -u $EUID -shell /sbin/nologin -group $EGROUP $EUSER
+         usermod -u $EUID -s /sbin/nologin -g $EGID $EUSER
       fi
    fi
 else
    if [ ! -z $EHOME ]; then
       # create new user with id = EUID, group = EGROUP and home directory = EHOME,
       # with nologin shell
-      adduser -shell /sbin/nologin -u $EUID -group $EGROUP -h $EHOME -D $EUSER
+      adduser --shell /sbin/nologin --uid $EUID --group $EGROUP --home $EHOME --disabled-password $EUSER
    else
       # create new user with id = EUID and group = EGROUP, with nologin shell
-      adduser -shell /sbin/nologin -u $EUID -group $EGROUP -D $EUSER
+      adduser --shell /sbin/nologin --uid $EUID --group $EGROUP --disabled-password $EUSER
    fi
 fi
 
