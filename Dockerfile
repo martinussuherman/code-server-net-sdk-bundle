@@ -26,7 +26,6 @@ ENV LABEL_MAINTAINER="Martinus Suherman" \
 
 # Install tzdata gosu and code-server
 RUN apt-get update -y && \
-    apt-get install -y apt-utils && \
     ln -fs /usr/share/zoneinfo/UTC /etc/localtime && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata && \
     apt-get install -y gosu && \
