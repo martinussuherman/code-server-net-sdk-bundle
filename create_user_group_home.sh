@@ -33,10 +33,10 @@ else
    if [ ! -z $EHOME ]; then
       # create new user with id = EUID, group = EGROUP and home directory = EHOME,
       # with nologin shell
-      adduser -shell /sbin/nologin -u $EUID -G $EGROUP -h $EHOME -D $EUSER
+      adduser -shell /sbin/nologin -u $EUID -group $EGROUP -h $EHOME -D $EUSER
    else
       # create new user with id = EUID and group = EGROUP, with nologin shell
-      adduser -shell /sbin/nologin -u $EUID -G $EGROUP -D $EUSER
+      adduser -shell /sbin/nologin -u $EUID -group $EGROUP -D $EUSER
    fi
 fi
 
