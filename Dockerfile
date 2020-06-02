@@ -24,9 +24,11 @@ ENV LABEL_MAINTAINER="Martinus Suherman" \
     # container timezone \
     TZ=UTC 
 
-# Install gosu and code-server
+# Install tzdata gosu and code-server
 RUN apt-get update -y && \
-    apt-get install -y gosu tzdata && \
+    ln -fs /usr/share/zoneinfo/UTC /etc/localtime && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata && \
+    apt-get install -y gosu && \
     apt-get clean && \
     curl -fsSL https://code-server.dev/install.sh | sh && \
     rm -rf ~/.cache/code-server/
