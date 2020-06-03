@@ -48,6 +48,7 @@ RUN chmod +x \
     /entrypoint_exec.sh
 
 ENTRYPOINT ["/entrypoint_gosu.sh", "code-server"]
+CMD ["--bind-addr 0.0.0.0:8080"]
 
 #
 ARG LABEL_VERSION="latest"
