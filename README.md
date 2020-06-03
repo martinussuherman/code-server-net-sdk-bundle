@@ -16,7 +16,7 @@ This is a [.NET Core SDK 3.1 - Ubuntu 18.04](https://hub.docker.com/_/microsoft-
 ### *Using docker run*
 
 ```bash
-$ docker run --name code-server -v ~/path/for/vscode-and-nuget:/home/vscode -e TZ=Asia/Jakarta -e EUID=$(id -u) -e EGID=$(id -g) martinussuherman/code-server-net-sdk-bundle
+$ docker run --name code-server -v ~/path/for/vscode-and-nuget:/home/vscode -e TZ=Asia/Jakarta -e EUID=$(id -u) -e EGID=$(id -g) -p 8080:8080 martinussuherman/code-server-net-sdk-bundle
 ```
 This will set the `timezone` to Asia/Jakarta (you will want to change it to your own timezone) and map the `user id` dan `group id` of the current user to `vscode` user and group.
 
@@ -34,6 +34,11 @@ services:
       - EGID=1001
     volumes:
       - ~/path/for/vscode-and-nuget:/home/vscode
+    ports:
+      - 8080:8080
+
 ```
 
-*Note:* you will want to change the value for `EUID` and `EGID` with your current user `user id` dan `group id`.
+*Note:* 
+1. You will want to change the value for `EUID` and `EGID` with your current user `user id` dan `group id`.
+2. *code-server* config file will be saved to `~/path/for/vscode-and-nuget/.config/code-server/config.yaml`
